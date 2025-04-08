@@ -62,6 +62,7 @@ export default {
   max-width: 75vw;
   margin: auto auto;
   aspect-ratio: 16/9;
+  transform: translateY(-0.25rem);
 }
 
 #app {

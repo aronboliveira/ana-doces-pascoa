@@ -1,4 +1,4 @@
-# 🐣🍫 Cardápio de Páscoa — Ana Doces
+# 🐰🍫 Cardápio de Páscoa — Ana Doces
 
 Repositório para a publicação do cardápio digital de Páscoa da confeitaria **Ana Doces**.  
 Visualize nossos produtos especiais para a Páscoa diretamente pelo site!
@@ -84,8 +84,3 @@ Esplora brownies artigianali, biscotti e tante altre dolcezze fatte a mano con a
 🔗 Visita: [Ana Doces - Menu di Pasqua](https://ana-doces-pascoa.netlify.app/)
 
 </details>
-
----
-
-🖼️ **Imagem de destaque:**  
-![Ana Doces](https://ana-doces-pascoa.netlify.app/img/og-bolo6.png)
