@@ -12,11 +12,16 @@ export default {
         });
       }
       (() => {
-        const ci = document.querySelector(".carousel-inner");
-        if (!ci) return;
-        const imgs = ci.getElementsByTagName("img");
+        const queryForImgs = () => {
+            const ci = document.querySelector(".carousel-inner");
+            if (!ci?.isConnected) return { ci, imgs: [] };
+            const imgs = ci.getElementsByTagName("img");
+            if (!imgs.length) return { ci, imgs: [] };
+            return { ci, imgs };
+          },
+          { ci, imgs } = queryForImgs();
         if (!imgs.length) return;
-        setTimeout(() => {
+        setInterval(() => {
           const maxHeight = Math.max(
             ...Array.from(imgs)
               .map((img) =>
@@ -38,7 +43,14 @@ export default {
             ?.querySelector(".carousel-indicators");
           if (!(indicators instanceof HTMLElement)) return;
           indicators.style.height = `${Math.round(maxHeight) * 0.925}px`;
-        }, 1000);
+          const carouselInnerRect = ci.getBoundingClientRect(),
+            carouselBottom = carouselInnerRect.bottom + scrollY,
+            indicatorsRect = indicators.getBoundingClientRect(),
+            indicatorsTop = indicatorsRect.top + scrollY,
+            limit = carouselBottom * 0.78;
+          if (indicatorsTop < limit) indicators.style.opacity = "0";
+          else indicators.style.opacity = "1";
+        }, 200);
       })();
     });
   },
@@ -127,7 +139,6 @@ export default {
   overflow: auto;
   object-fit: contain;
   background-color: #f5f0f5;
-  pointer-events: none;
 }
 
 @media (min-width: 850px) {
@@ -151,7 +162,7 @@ export default {
 
 .carousel-indicators {
   top: 92.5%;
-  max-height: 100%;
+  max-height: 10%;
   max-width: 100%;
   filter: invert(0.5);
   overflow: hidden;
