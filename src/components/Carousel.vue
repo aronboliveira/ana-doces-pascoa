@@ -55,6 +55,37 @@ export default {
           rt.style.height = `${Math.round(maxHeight) * 1.3}px`;
         }, 200);
       })();
+      const toCb = () => {
+        const cis = Array.from(document.images)
+            .map((e) => e.closest(".carousel-item"))
+            .filter(Boolean),
+          fa = cis.find((e) => e.classList.contains("active"));
+        if (!fa) return false;
+        const cs = getComputedStyle(fa),
+          h = cs.height,
+          w = cs.width,
+          controls = [
+            ...document.querySelectorAll('[class*="carousel-control-"]'),
+            ...(document
+              .querySelector(".carousel-indicators")
+              ?.getElementsByTagName("button") ?? []),
+          ];
+        controls.forEach((b) => {
+          if (b instanceof HTMLButtonElement) b.disabled = true;
+        });
+        for (const ci of cis) {
+          ci.style.height = h;
+          ci.style.width = w;
+        }
+        controls.forEach((b) => {
+          if (b instanceof HTMLButtonElement) b.disabled = false;
+        });
+        return true;
+      };
+      setTimeout(() => {
+        const res = toCb();
+        if (!res) setTimeout(toCb, 1000);
+      }, 500);
     });
   },
 };
@@ -152,7 +183,7 @@ export default {
   [data-indicator="slide__7"],
   [data-indicator="slide__8"],
   [data-indicator="slide__9"] {
-    object-position: 0 -21vh;
+    object-position: 0 -6vh;
   }
 }
 
