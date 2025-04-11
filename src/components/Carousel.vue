@@ -11,6 +11,35 @@ export default {
           ride: "carousel",
         });
       }
+      (() => {
+        const ci = document.querySelector(".carousel-inner");
+        if (!ci) return;
+        const imgs = ci.getElementsByTagName("img");
+        if (!imgs.length) return;
+        setTimeout(() => {
+          const maxHeight = Math.max(
+            ...Array.from(imgs)
+              .map((img) =>
+                parseFloat(getComputedStyle(img).height.replace("px", ""))
+              )
+              .filter((n) => !isNaN(n) && Number.isFinite(n))
+          );
+          if (maxHeight < 300) return;
+          [
+            ...["next", "prev"].map((b) =>
+              ci.closest(".carousel")?.querySelector(`.carousel-control-${b}`)
+            ),
+          ].forEach((b) => {
+            if (!b?.isConnected) return;
+            b.style.height = `${Math.round(maxHeight)}px`;
+          });
+          const indicators = ci
+            .closest(".carousel")
+            ?.querySelector(".carousel-indicators");
+          if (!(indicators instanceof HTMLElement)) return;
+          indicators.style.height = `${Math.round(maxHeight) * 0.925}px`;
+        }, 1000);
+      })();
     });
   },
 };
