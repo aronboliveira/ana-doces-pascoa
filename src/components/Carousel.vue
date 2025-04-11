@@ -64,8 +64,6 @@ export default {
   aspect-ratio: 16/9;
   transform: translateY(-0.25rem);
   box-shadow: 0.5rem 0.5rem 0.5rem #0004;
-  border: ridge 0.5rem #fff5;
-  border-radius: 1rem;
 }
 
 #app {
@@ -77,14 +75,20 @@ export default {
   position: relative;
   width: 100%;
   overflow: hidden;
+  border: ridge 0.5rem #fff5;
   border-radius: 0.5rem;
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
 }
 
 .carousel-item {
   max-height: 100vh;
+  max-width: 100%;
+  max-height: 100%;
   overflow: auto;
   scrollbar-width: none;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
 }
 
 .carousel-item img {
@@ -116,6 +120,7 @@ export default {
 }
 
 .carousel-indicators {
+  top: 92.5%;
   max-height: 100%;
   max-width: 100%;
   filter: invert(0.5);
