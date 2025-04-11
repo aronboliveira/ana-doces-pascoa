@@ -55,37 +55,27 @@ export default {
           rt.style.height = `${Math.round(maxHeight) * 1.3}px`;
         }, 200);
       })();
-      const toCb = () => {
-        const cis = Array.from(document.images)
-            .map((e) => e.closest(".carousel-item"))
-            .filter(Boolean),
-          fa = cis.find((e) => e.classList.contains("active"));
-        if (!fa) return false;
-        const cs = getComputedStyle(fa),
-          h = cs.height,
-          w = cs.width,
-          controls = [
-            ...document.querySelectorAll('[class*="carousel-control-"]'),
-            ...(document
-              .querySelector(".carousel-indicators")
-              ?.getElementsByTagName("button") ?? []),
-          ];
-        controls.forEach((b) => {
-          if (b instanceof HTMLButtonElement) b.disabled = true;
+      document.querySelector(".carousel-item.active")?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "center",
+      });
+      setInterval(() => {
+        document.querySelector(".carousel-item.active")?.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+          inline: "center",
         });
-        for (const ci of cis) {
-          ci.style.height = h;
-          ci.style.width = w;
-        }
-        controls.forEach((b) => {
-          if (b instanceof HTMLButtonElement) b.disabled = false;
-        });
-        return true;
-      };
-      setTimeout(() => {
-        const res = toCb();
-        if (!res) setTimeout(toCb, 1000);
-      }, 500);
+      }, 5000);
+      window.addEventListener("resize", () => {
+        const c = document.getElementById("carouselMenu");
+        if (!(c instanceof HTMLElement)) return;
+        const maxY = `${innerHeight * 0.8}px`;
+        console.log(maxY);
+        if (!Number.isFinite(maxY)) return;
+        c.style.maxHeight = `${innerHeight}px`;
+        c.style.maxWidth = maxY;
+      });
     });
   },
 };
@@ -134,7 +124,7 @@ export default {
 <style>
 #carouselMenu {
   width: 100%;
-  max-width: 75vw;
+  max-width: 80vw;
   margin: auto auto;
   aspect-ratio: 16/9;
   transform: translateY(-0.25rem);
@@ -185,6 +175,9 @@ export default {
   [data-indicator="slide__9"] {
     object-position: 0 -6vh;
   }
+  #carouselMenu {
+    max-width: 50vw;
+  }
 }
 
 .carousel-control-next-icon,
@@ -192,6 +185,14 @@ export default {
   max-height: 100%;
   filter: invert(0.5);
   overflow: hidden;
+}
+
+.carousel-control-next-icon {
+  transform: translateX(-1vw);
+}
+
+.carousel-control-prev-icon {
+  transform: translate(1vw);
 }
 
 .carousel-indicators {
