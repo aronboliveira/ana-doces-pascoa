@@ -42,7 +42,7 @@ export default {
             .closest(".carousel")
             ?.querySelector(".carousel-indicators");
           if (!(indicators instanceof HTMLElement)) return;
-          indicators.style.height = `${Math.round(maxHeight) * 0.925}px`;
+          indicators.style.top = `${Math.round(maxHeight) * 1.1}px`;
           const carouselInnerRect = ci.getBoundingClientRect(),
             carouselBottom = carouselInnerRect.bottom + scrollY,
             indicatorsRect = indicators.getBoundingClientRect(),
@@ -50,6 +50,9 @@ export default {
             limit = carouselBottom * 0.78;
           if (indicatorsTop < limit) indicators.style.opacity = "0";
           else indicators.style.opacity = "1";
+          const rt = document.getElementById("app");
+          if (!rt) return;
+          rt.style.height = `${Math.round(maxHeight) * 1.3}px`;
         }, 200);
       })();
     });
@@ -161,10 +164,10 @@ export default {
 }
 
 .carousel-indicators {
-  top: 92.5%;
+  position: absolute;
   max-height: 10%;
   max-width: 100%;
+  margin-block: 0;
   filter: invert(0.5);
-  overflow: hidden;
 }
 </style>
