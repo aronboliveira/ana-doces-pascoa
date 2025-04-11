@@ -17,17 +17,6 @@ export default {
 </script>
 <template>
   <div id="carouselMenu" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-      <button
-        v-for="i in 9"
-        :key="'indicator-' + i"
-        type="button"
-        data-bs-target="#carouselMenu"
-        :data-bs-slide-to="i - 1"
-        :class="{ active: i === 1 }"
-        :aria-label="'Slide ' + i"
-      ></button>
-    </div>
     <div class="carousel-inner">
       <CarouselItem
         v-for="i in 9"
@@ -54,6 +43,17 @@ export default {
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Próximo</span>
     </button>
+    <div class="carousel-indicators">
+      <button
+        v-for="i in 9"
+        :key="'indicator-' + i"
+        type="button"
+        data-bs-target="#carouselMenu"
+        :data-bs-slide-to="i - 1"
+        :class="{ active: i === 1 }"
+        :aria-label="'Slide ' + i"
+      ></button>
+    </div>
   </div>
 </template>
 <style>
@@ -63,6 +63,9 @@ export default {
   margin: auto auto;
   aspect-ratio: 16/9;
   transform: translateY(-0.25rem);
+  box-shadow: 0.5rem 0.5rem 0.5rem #0004;
+  border: ridge 0.5rem #fff5;
+  border-radius: 1rem;
 }
 
 #app {
@@ -78,10 +81,43 @@ export default {
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
 }
 
+.carousel-item {
+  max-height: 100vh;
+  overflow: auto;
+  scrollbar-width: none;
+}
+
 .carousel-item img {
+  max-width: 100%;
+  max-height: 100%;
   width: 100%;
   height: 100%;
   object-fit: contain;
-  background-color: #f8f9fa;
+  background-color: #f5f0f5;
+  pointer-events: none;
+}
+
+@media (min-width: 850px) {
+  [data-indicator="slide__1"],
+  [data-indicator="slide__6"] {
+    object-position: 0 -3vh;
+  }
+  [data-indicator="slide__7"],
+  [data-indicator="slide__8"],
+  [data-indicator="slide__9"] {
+    object-position: 0 -21vh;
+  }
+}
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+  max-height: 100%;
+  filter: invert(0.5);
+}
+
+.carousel-indicators {
+  max-height: 100%;
+  max-width: 100%;
+  filter: invert(0.5);
 }
 </style>

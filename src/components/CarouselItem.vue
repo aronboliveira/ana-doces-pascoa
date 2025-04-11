@@ -5,6 +5,7 @@
       class="d-block w-100"
       :alt="`Menu de Páscoa Slide ${suffix}`"
       loading="lazy"
+      :data-indicator="`slide__${suffix}`"
     />
   </div>
 </template>
